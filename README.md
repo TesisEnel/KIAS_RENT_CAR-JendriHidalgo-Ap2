@@ -75,5 +75,3 @@ Monitorear dashboard del sistema
 
 👨‍💻 Autor
 Jendri Hidalgo - Estudiante de Ingenieria en Sistemas
-GitHub: @tu-usuario
-Email: tu-email@ejemplo.com
