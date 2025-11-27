@@ -1,11 +1,12 @@
 package edu.ucne.kias_rent_car.data.remote
 
-import edu.ucne.kias_rent_car.data.remote.Dto.UsuarioRequest
-import edu.ucne.kias_rent_car.data.remote.Dto.UsuarioResponse
+import edu.ucne.kias_rent_car.data.remote.Dto.Usuario.UsuarioRequest
+import edu.ucne.kias_rent_car.data.remote.Dto.Usuario.UsuarioResponse
 import javax.inject.Inject
+import kotlin.collections.emptyList
 
 class UsuarioRemoteDataSource @Inject constructor(
-    private val apiService: ApiService
+    private val apiService: UsuarioApiService
 ) {
 
     suspend fun login(userName: String, password: String): UsuarioResponse? {

@@ -1,4 +1,4 @@
-package edu.ucne.kias_rent_car.presentation
+package edu.ucne.kias_rent_car.presentation.LoginTareas
 
 import edu.ucne.kias_rent_car.R
 import androidx.compose.foundation.Image
@@ -49,6 +49,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import edu.ucne.kias_rent_car.presentation.LoginTareas.LoginUiEvent
+import edu.ucne.kias_rent_car.presentation.LoginTareas.LoginViewModel
 
 private val scrimLight = Color(0xFF000000)
 val onErrorDark = Color(0xFF690005)

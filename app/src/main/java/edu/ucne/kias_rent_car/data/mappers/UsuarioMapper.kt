@@ -1,7 +1,7 @@
 package edu.ucne.kias_rent_car.data.mappers
 
-import edu.ucne.kias_rent_car.data.remote.Dto.UsuarioRequest
-import edu.ucne.kias_rent_car.data.remote.Dto.UsuarioResponse
+import edu.ucne.kias_rent_car.data.remote.Dto.Usuario.UsuarioRequest
+import edu.ucne.kias_rent_car.data.remote.Dto.Usuario.UsuarioResponse
 import edu.ucne.kias_rent_car.domain.model.Usuario
 object UsuarioMapper {
     fun UsuarioResponse.toDomain(): Usuario? {

@@ -1,5 +1,6 @@
 package edu.ucne.kias_rent_car.data.repository
 
+
 import edu.ucne.kias_rent_car.data.mappers.UsuarioMapper.crearUsuarioRequest
 import edu.ucne.kias_rent_car.data.mappers.UsuarioMapper.toDomain
 import edu.ucne.kias_rent_car.data.remote.Resource
@@ -8,10 +9,10 @@ import edu.ucne.kias_rent_car.domain.model.Usuario
 import edu.ucne.kias_rent_car.domain.repository.UsuarioRepository
 import javax.inject.Inject
 
+
 class UsuarioRepositoryImpl @Inject constructor(
     private val remoteDataSource: UsuarioRemoteDataSource
 ) : UsuarioRepository {
-
     override suspend fun login(userName: String, password: String): Resource<Usuario> {
         return try {
             if (userName.isBlank() || password.isBlank()) {

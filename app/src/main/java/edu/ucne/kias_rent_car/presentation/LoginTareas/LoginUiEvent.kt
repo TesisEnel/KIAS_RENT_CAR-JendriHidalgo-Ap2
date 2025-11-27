@@ -1,4 +1,4 @@
-package edu.ucne.kias_rent_car.presentation
+package edu.ucne.kias_rent_car.presentation.LoginTareas
 
 sealed class LoginUiEvent {
 

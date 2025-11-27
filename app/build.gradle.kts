@@ -15,7 +15,7 @@ android {
     defaultConfig {
         applicationId = "edu.ucne.kias_rent_car"
         minSdk = 26
-        targetSdk = 36
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -58,6 +58,9 @@ dependencies {
 
 
     implementation("com.google.accompanist:accompanist-permissions:0.30.1")
+
+    // Coil para cargar imágenes
+    implementation("io.coil-kt:coil-compose:2.5.0")
 
     // Gson para TypeConverter
     implementation("com.google.code.gson:gson:2.10.1")

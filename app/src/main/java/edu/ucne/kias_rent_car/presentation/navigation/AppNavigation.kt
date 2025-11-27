@@ -4,8 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import edu.ucne.kias_rent_car.presentation.navigation.LoginRoute
-import edu.ucne.kias_rent_car.presentation.navigation.RegistroRoute
+import edu.ucne.kias_rent_car.presentation.LoginTareas.LoginScreen
+import edu.ucne.kias_rent_car.presentation.LoginTareas.RegistroScreen
+import edu.ucne.kias_rent_car.presentation.HomeClienteTareas.HomeScreen
+import edu.ucne.kias_rent_car.presentation.navigation.*
 
 @Composable
 fun AppNavigation() {
@@ -15,10 +17,13 @@ fun AppNavigation() {
         navController = navController,
         startDestination = LoginRoute
     ) {
+        // ==================== AUTH ====================
         composable<LoginRoute> {
             LoginScreen(
                 onLoginExitoso = {
-
+                    navController.navigate(HomeRoute) {
+                        popUpTo(LoginRoute) { inclusive = true }
+                    }
                 },
                 onNavigateToRegistro = {
                     navController.navigate(RegistroRoute)
@@ -33,6 +38,15 @@ fun AppNavigation() {
                 },
                 onNavigateBack = {
                     navController.popBackStack()
+                }
+            )
+        }
+
+        // ==================== HOME ====================
+        composable<HomeRoute> {
+            HomeScreen(
+                onNavigateToVehicleDetail = { vehicleId ->
+                    navController.navigate(VehicleDetailRoute(vehicleId))
                 }
             )
         }

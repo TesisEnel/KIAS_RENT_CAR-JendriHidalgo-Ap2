@@ -7,8 +7,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import edu.ucne.kias_rent_car.data.remote.ApiService
-import edu.ucne.kias_rent_car.data.remote.UsuarioRemoteDataSource
-import edu.ucne.kias_rent_car.data.repository.UsuarioRepositoryImpl
+import edu.ucne.kias_rent_car.data.remote.RemoteDataSource.VehicleRemoteDataSource
+import edu.ucne.kias_rent_car.data.remote.UsuarioApiService
 import edu.ucne.kias_rent_car.domain.repository.UsuarioRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -21,6 +21,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object ApiModule {
     private const val BASE_URL = "https://gestionhuacalesapi.azurewebsites.net/api/Usuarios/"
+
     @Provides
     @Singleton
     fun provideLoggingInterceptor(): HttpLoggingInterceptor {
@@ -62,20 +63,13 @@ object ApiModule {
 
     @Provides
     @Singleton
-    fun provideUsuarioApi(retrofit: Retrofit): ApiService {
+    fun provideApiService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideUsuarioRemoteDataSource(usuarioApi: ApiService): UsuarioRemoteDataSource {
-        return UsuarioRemoteDataSource(usuarioApi)
-    }
-    @Provides
-    @Singleton
-    fun provideUsuarioRepository(
-        remoteDataSource: UsuarioRemoteDataSource
-    ): UsuarioRepository {
-        return UsuarioRepositoryImpl(remoteDataSource)
+    fun provideUsuarioApiService(retrofit: Retrofit): UsuarioApiService {
+        return retrofit.create(UsuarioApiService::class.java)
     }
 }

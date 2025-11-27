@@ -1,10 +1,10 @@
-package edu.ucne.kias_rent_car.presentation
+package edu.ucne.kias_rent_car.presentation.LoginTareas
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import edu.ucne.kias_rent_car.data.remote.Resource
-import edu.ucne.kias_rent_car.domain.usecase.LoginUseCase
+import edu.ucne.kias_rent_car.domain.usecase.Usuario.LoginUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
