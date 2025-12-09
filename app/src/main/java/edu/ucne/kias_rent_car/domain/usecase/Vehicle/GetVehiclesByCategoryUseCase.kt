@@ -7,8 +7,9 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GetVehiclesByCategoryUseCase @Inject constructor(
-    private val repo: VehicleRepository
+    private val repository: VehicleRepository
 ) {
-    operator fun invoke(category: VehicleCategory): Flow<List<Vehicle>> =
-        repo.observeVehiclesByCategory(category)
+    suspend operator fun invoke(category: VehicleCategory): Flow<List<Vehicle>> {
+        return repository.observeVehiclesByCategory(category)
+    }
 }
