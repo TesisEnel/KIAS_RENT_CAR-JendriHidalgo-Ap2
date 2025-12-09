@@ -1,4 +1,4 @@
-package edu.ucne.kias_rent_car.data.remote.Dto.Vehicle
+package edu.ucne.kias_rent_car.data.remote.Dto.VehicleDtos
 
 data class VehicleResponse(
     val vehiculoId: Int,
