@@ -1,23 +1,18 @@
 package edu.ucne.kias_rent_car.data.remote
 
-import edu.ucne.kias_rent_car.data.remote.Dto.Usuario.UsuarioRequest
-import edu.ucne.kias_rent_car.data.remote.Dto.Usuario.UsuarioResponse
+import edu.ucne.kias_rent_car.data.remote.Dto.UsuarioDtos.LoginRequest
+import edu.ucne.kias_rent_car.data.remote.Dto.UsuarioDtos.RegistroRequest
+import edu.ucne.kias_rent_car.data.remote.Dto.UsuarioDtos.UsuarioDto
 import javax.inject.Inject
-import kotlin.collections.emptyList
 
 class UsuarioRemoteDataSource @Inject constructor(
-    private val apiService: UsuarioApiService
+    private val apiService: ApiService
 ) {
-
-    suspend fun login(userName: String, password: String): UsuarioResponse? {
+    suspend fun login(email: String, password: String): UsuarioDto? {
         return try {
-            val response = apiService.obtenerUsuarios()
+            val response = apiService.login(LoginRequest(email, password))
             if (response.isSuccessful) {
-                val usuarios = response.body() ?: emptyList()
-                usuarios.find {
-                    it.userName?.trim() == userName.trim() &&
-                            it.password?.trim() == password.trim()
-                }
+                response.body()
             } else {
                 null
             }
@@ -25,13 +20,33 @@ class UsuarioRemoteDataSource @Inject constructor(
             null
         }
     }
-
-    /**
-     * Registrar nuevo usuario
-     */
-    suspend fun registrarUsuario(request: UsuarioRequest): UsuarioResponse? {
+    suspend fun registro(
+        nombre: String,
+        email: String,
+        password: String,
+        telefono: String?
+    ): UsuarioDto? {
         return try {
-            val response = apiService.crearUsuario(request)
+            val request = RegistroRequest(
+                nombre = nombre,
+                email = email,
+                password = password,
+                telefono = telefono,
+                rol = "Cliente"
+            )
+            val response = apiService.registro(request)
+            if (response.isSuccessful) {
+                response.body()
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            null
+        }
+    }
+    suspend fun getUsuarioById(id: Int): UsuarioDto? {
+        return try {
+            val response = apiService.getUsuarioById(id)
             if (response.isSuccessful) {
                 response.body()
             } else {
@@ -42,28 +57,19 @@ class UsuarioRemoteDataSource @Inject constructor(
         }
     }
 
-    suspend fun obtenerUsuarioPorId(id: Int): UsuarioResponse? {
+    suspend fun getUsuarios(): List<UsuarioDto>? {
         return try {
-            val response = apiService.obtenerUsuarioPorId(id)
-            if (response.isSuccessful) {
-                response.body()
-            } else {
-                null
-            }
+            val response = apiService.getUsuarios()
+            if (response.isSuccessful) response.body() else null
         } catch (e: Exception) {
             null
         }
     }
 
-    suspend fun verificarUserNameExistente(userName: String): Boolean {
+    suspend fun deleteUsuario(id: Int): Boolean {
         return try {
-            val response = apiService.obtenerUsuarios()
-            if (response.isSuccessful) {
-                val usuarios = response.body() ?: emptyList()
-                usuarios.any { it.userName?.trim() == userName.trim() }
-            } else {
-                false
-            }
+            val response = apiService.deleteUsuario(id)
+            response.isSuccessful
         } catch (e: Exception) {
             false
         }
