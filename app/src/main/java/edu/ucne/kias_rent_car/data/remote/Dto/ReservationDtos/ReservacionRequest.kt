@@ -1,6 +1,6 @@
-package edu.ucne.kias_rent_car.data.remote.Dto.Reservation
+package edu.ucne.kias_rent_car.data.remote.Dto.ReservationDtos
 
-data class ReservationResponse(
+data class ReservacionRequest(
     val reservaId: Int,
     val vehiculoId: Int,
     val usuarioId: String,
