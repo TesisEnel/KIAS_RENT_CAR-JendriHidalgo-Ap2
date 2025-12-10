@@ -1,7 +1,10 @@
 package edu.ucne.kias_rent_car.presentation.LoginTareas
 
 data class RegistroUiState(
-    val userName: String = "",
+    val nombre: String = "",
+    val email: String = "",
+    val emailError: String? = null,
+    val telefono: String = "",
     val password: String = "",
     val confirmPassword: String = "",
     val passwordVisible: Boolean = false,
@@ -10,7 +13,9 @@ data class RegistroUiState(
     val registroExitoso: Boolean = false
 ) {
     fun esFormularioValido(): Boolean {
-        return userName.isNotBlank() &&
+        return nombre.isNotBlank() &&
+                email.isNotBlank() &&
+                emailError == null &&
                 password.length >= 4 &&
                 password == confirmPassword
     }
