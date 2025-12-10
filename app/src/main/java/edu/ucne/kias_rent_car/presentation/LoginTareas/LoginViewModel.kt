@@ -22,30 +22,18 @@ class LoginViewModel @Inject constructor(
 
     fun onEvent(event: LoginUiEvent) {
         when (event) {
-            is LoginUiEvent.UserNameChanged -> {
-                _uiState.update { it.copy(userName = event.userName, error = null) }
+            is LoginUiEvent.EmailChanged -> {
+                _uiState.update { it.copy(email = event.email, error = null) }
             }
-
             is LoginUiEvent.PasswordChanged -> {
                 _uiState.update { it.copy(password = event.password, error = null) }
             }
-
             is LoginUiEvent.Login -> {
                 realizarLogin()
             }
-
             is LoginUiEvent.TogglePasswordVisibility -> {
                 _uiState.update { it.copy(passwordVisible = !it.passwordVisible) }
             }
-
-            is LoginUiEvent.RegisterClick -> {
-                _uiState.update { it.copy(mostrarDialogoRegistro = true) }
-            }
-
-            is LoginUiEvent.DismissRegisterDialog -> {
-                _uiState.update { it.copy(mostrarDialogoRegistro = false) }
-            }
-
             is LoginUiEvent.ClearError -> {
                 _uiState.update { it.copy(error = null) }
             }
@@ -57,7 +45,7 @@ class LoginViewModel @Inject constructor(
 
         if (!state.esFormularioValido()) {
             _uiState.update {
-                it.copy(error = "Por favor completa todos los campos correctamente")
+                it.copy(error = "Por favor completa todos los campos")
             }
             return
         }
@@ -65,7 +53,7 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true, error = null) }
 
-            val resultado = loginUseCase(state.userName, state.password)
+            val resultado = loginUseCase(state.email, state.password)
 
             _uiState.update {
                 when (resultado) {
@@ -76,7 +64,6 @@ class LoginViewModel @Inject constructor(
                             error = null
                         )
                     }
-
                     is Resource.Error -> {
                         it.copy(
                             isLoading = false,
@@ -84,7 +71,6 @@ class LoginViewModel @Inject constructor(
                             loginExitoso = null
                         )
                     }
-
                     is Resource.Loading -> {
                         it.copy(isLoading = true)
                     }
