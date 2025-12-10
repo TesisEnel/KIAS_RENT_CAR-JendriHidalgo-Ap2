@@ -14,6 +14,8 @@ interface UsuarioDao {
     suspend fun insertUsuario(usuario: UsuarioEntity)
     @Update
     suspend fun updateUsuario(usuario: UsuarioEntity)
+    @Query("SELECT * FROM usuarios")
+    suspend fun getAllUsuarios(): List<UsuarioEntity>
     @Query("SELECT * FROM usuarios WHERE usuarioId = :id")
     suspend fun getUsuarioById(id: Int): UsuarioEntity?
     @Query("SELECT * FROM usuarios WHERE email = :email LIMIT 1")
