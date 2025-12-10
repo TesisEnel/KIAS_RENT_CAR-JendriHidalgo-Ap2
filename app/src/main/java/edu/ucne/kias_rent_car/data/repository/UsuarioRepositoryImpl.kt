@@ -120,9 +120,20 @@ class UsuarioRepositoryImpl @Inject constructor(
     override suspend fun getAllUsuarios(): List<Usuario> {
         return try {
             val remotos = remoteDataSource.getUsuarios()
-            remotos?.map { it.toDomain() } ?: emptyList()
+            if (remotos != null) {
+                remotos.forEach { dto ->
+                    usuarioDao.insertUsuario(dto.toEntity())
+                }
+                remotos.map { it.toDomain() }
+            } else {
+                usuarioDao.getAllUsuarios().map { it.toDomain() }
+            }
         } catch (e: Exception) {
-            emptyList()
+            try {
+                usuarioDao.getAllUsuarios().map { it.toDomain() }
+            } catch (e: Exception) {
+                emptyList()
+            }
         }
     }
 
