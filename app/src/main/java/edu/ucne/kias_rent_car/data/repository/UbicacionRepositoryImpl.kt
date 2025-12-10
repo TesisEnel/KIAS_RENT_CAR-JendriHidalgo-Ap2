@@ -26,7 +26,7 @@ class UbicacionRepositoryImpl @Inject constructor(
         return ubicacionDao.getUbicaciones().toDomainList()
     }
 
-    override fun observeUbicaciones(): Flow<List<Ubicacion>> {
+    override suspend fun observeUbicaciones(): Flow<List<Ubicacion>> {
         return ubicacionDao.observeUbicaciones().map { entities ->
             entities.toDomainList()
         }
